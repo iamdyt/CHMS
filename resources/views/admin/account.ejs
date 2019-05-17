@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+        <%include partials/bootstrap%>
+    <title>Administrative Account Setting</title>
+</head>
+
+<body>
+    
+    <div class="dashboard-main-wrapper">
+        <%include partials/navbar%>
+        <%include partials/sidebar%>
+       
+            
+                <div class="container  dashboard-content ">                    
+                        <div class="row justify-content-center">
+                                <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12  ">
+                                        <div class="card">
+                                                <h5 class="card-header">Account Setting <img src="<%=admin.image%>" class="img-fluid rounded-circle float-right" height="50" width="50"></h5>
+                                                <div class="card-body">
+                                                        <form method="POST"  action="/admin/account/<%=admin.id%>" enctype="multipart/form-data">
+                                                            <div class="form-group">
+                                                                <input class="form-control form-control-lg" required=true name="user" type="text" value="<%=admin.username%>" autocomplete="off">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input class="form-control form-control-lg" required=true name="email" type="email" value="<%=admin.email%>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                    <input class="form-control form-control-lg" required=true name="password" type="password" readonly value="<%=admin.password%>">
+                                                                </div>
+                                                            <div class="form-group">
+                                                                    <input class="form-control form-control-lg" name="image" type="file" placeholder="password" value="<%=admin.image%> " accept="image/png, image/jpeg, image/jpg">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
+                                                        </form>
+                                                </div>
+                                          </div>
+                                </div>
+                            </di>
+                        </div>
+                    </div>
+                
+            </div>
+        
+       
+    <!-- Optional JavaScript -->
+    <%include partials/javascript%>
+</body>
+ 
+</html>
