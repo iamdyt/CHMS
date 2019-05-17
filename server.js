@@ -31,6 +31,7 @@ app.use(flash());
 app.use('*',(request,response,next)=>{
     app.locals.adminname = request.session.adminname;
     app.locals.adminid = request.session.adminid;
+    app.locals.adminimage = request.session.adminimage;
     next();
 });
 

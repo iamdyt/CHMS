@@ -39,13 +39,14 @@ module.exports = {
     postSignin:async(request,response)=>{
         const {user, password} = request.body;
         const hashedPassword = crypt(password,10);
-        const admin = await knex('admins').select('id','username','password')
+        const admin = await knex('admins').select('id','username','password','image')
         .where('username', user.toLowerCase()).orWhere('password',hashedPassword);
         if(admin.length!=0){
             if(user.toLowerCase()==admin[0].username){
                 if(hashedPassword==admin[0].password){
                     request.session.adminname = admin[0].username;
                     request.session.adminid=admin[0].id;
+                    request.session.adminimage = admin[0].image;
                     response.redirect('/admin/dashboard');
                 } else{
                     request.flash('error','Password Doesn\'t match');
@@ -71,16 +72,36 @@ module.exports = {
     },
     //update admin Profile
 
-    update:(request, response)=>{
-       const {user,email}=request.body;
-       const {image} = request.files;
-       image.mv(path.resolve('public/assets/images',image.name));
-       knex('admins').update({
-           username:user,
-           email:email,
-           image:`/assets/images/${image.name}`
-       }).where('id', request.params.id);
+    update:async(request, response)=>{
+       const {user,email,hidden}=request.body;
+       let images = {};
+       //if request.files is populated
+       if(request.files){
+            const {image} = request.files;
+            images = image;
+            images.mv(path.resolve('public/assets/images',images.name));
+            const admin = await knex('admins').where('id', request.params.id)
+            .update({
+                username:user,
+                email:email,
+                image:`/assets/images/${images.name}`
+                });
+       }else{
+            const admin = await knex('admins').where('id', request.params.id)
+            .update({
+                username:user,
+                email:email,
+                image:hidden
+                });
+       }
+       
+       
        response.redirect('/admin/dashboard');
 
+    },
+    //logout
+    logout:(request,response)=>{
+        request.session.destroy();
+        response.redirect('/admin/signin');
     }
 };

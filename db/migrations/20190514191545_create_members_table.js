@@ -11,7 +11,7 @@ exports.up = function(knex, Promise) {
         table.string('email',25);
         table.string('address',25);
         table.string('marital_status',25);
-        table.string('pics',25);
+        table.string('pics',100);
         table.integer('unit_id').unsigned();
         table.foreign('unit_id').references('id').inTable('units');
         table.timestamp('created_at').defaultTo(knex.fn.now());
