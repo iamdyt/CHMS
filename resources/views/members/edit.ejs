@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
         <%include ../partials/bootstrap%>
-    <title>Administrative Account Setting</title>
+        <link rel="stylesheet" href="/css/toastr.min.css">
+    <title>Edit Member</title>
 </head>
 
 <body>
@@ -26,7 +27,8 @@
                                                 <nav aria-label="breadcrumb">
                                                     <ol class="breadcrumb">
                                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                                        <li class="breadcrumb-item active" aria-current="page">Account</li>
+                                                        <li class="breadcrumb-item" aria-current="page">Members</li>
+                                                        <li class="breadcrumb-item active" aria-current="page">Edit Member</li>
                                                     </ol>
                                                 </nav>
                                             </div>
@@ -34,23 +36,73 @@
                                     </div>
                                 <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12  ">
                                         <div class="card">
-                                                <h5 class="card-header">Account Setting <img src="<%=admin.image%>" class="img-fluid rounded-circle float-right" height="60" width="60"></h5>
+                                                <h5 class="card-header"><i class="fas fa-edit">&emsp;</i>Update Member's Details <img class="rounded-circle float-right" width="50" height="50" src="<%=member.pics%>" alt=""> </h5>
                                                 <div class="card-body">
-                                                        <form method="POST"  action="/admin/account/<%=admin.id%>" enctype="multipart/form-data">
+                                                        <form method="POST"  action="/admin/members/edit/<%=member.id%>" enctype="multipart/form-data">
                                                             <div class="form-group">
-                                                                <input class="form-control form-control-lg" required=true name="user" type="text" value="<%=admin.username%>" autocomplete="on">
+                                                                <input class="form-control form-control-lg" required=true name="first" type="text" placeholder="First Name"  value="<%=member.first_name%>">
                                                             </div>
                                                             <div class="form-group">
-                                                                <input class="form-control form-control-lg" required=true name="email" type="email" value="<%=admin.email%>">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                    <input class="form-control form-control-lg" required=true name="password" type="password" readonly value="<%=admin.password%>">
+                                                                    <input class="form-control form-control-lg" required=true name="last" type="text" placeholder="Last Name" value="<%=member.last_name%>">
                                                                 </div>
+                                                                <div class="form-group">
+                                                                        <label>Date of Birth <small class="text-muted">dd/mm/yyyy</small></label>
+                                                                        <input type="date" class="form-control date-inputmask" id="date-mask" name="dob" required placeholder="" value="<%=member.dob%>">
+                                                                </div>
+                                                                
+                                                                <div class="form-group">
+                                                                        <label for="input-select">Gender</label>
+                                                                        <select class="form-control" id="input-select" name="gender" required>
+                                                                            <option value="<%=member.gender%>"><%=member.gender%></option>
+                                                                            <option value="Male">Male</option>
+                                                                            <option value="Female">Female</option>
+                                                                        </select>
+                                                                </div>
+
                                                             <div class="form-group">
-                                                                    <input class="form-control form-control-lg" name="image" type="file" accept="image/png, image/jpeg, image/jpg">
-                                                                    <input type="hidden" name="hidden" value="<%=admin.image%>">
+                                                                <input class="form-control form-control-lg" value="<%=member.occupation%>" required=true name="occupation" type="text" placeholder="Occupation" >
                                                             </div>
-                                                            <button type="submit" class="btn btn-primary btn-lg btn-block">Update</button>
+                                                            <div class="form-group">
+                                                                    <label>Phone <small class="text-muted">08012345678</small></label>
+                                                                    <input type="tel" class="form-control phone-inputmask" name="phone" maxlength="11" value="<%=member.phone%>" required placeholder="Phone Number">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                        <label>Email <small class="text-muted">xxx@xxx.xxx</small>
+                                                                        </label>
+                                                                        <input type="text" class="form-control email-inputmask" name='email' id="email-mask" placeholder="Email" value="<%=member.email%>">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                        <label>Address <small class="text-muted">Residential Address</small>
+                                                                        </label>
+                                                                        <textarea name="address" id="" cols="30" rows="5" class="form-control" required><%=member.address%></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                        <label for="input-select">Marital Status</label>
+                                                                        <select class="form-control" id="input-select" name="maritalstatus" required>
+                                                                            <option value="<%=member.marital_status%>"><%=member.marital_status%></option>
+                                                                            <option value="Married">Married</option>
+                                                                            <option value="Single">Single</option>
+                                                                        </select>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                        <label for="input-select">Units</label>
+                                                                        <select class="form-control" id="input-select" name="unit">
+                                                                            <option value="1">Choir</option>
+                                                                            <option value="2">Ushering</option>
+                                                                            <option value="3">Welfare</option>
+                                                                            <option value="4">Translating</option>
+                                                                            <option value="5">Technical</option>
+                                                                            <option value="6">Decorating</option>
+                                                                        </select>
+                                                                    </div>
+                                                            
+                                                            
+                                                            <div class="form-group">
+                                                                    <input  disabled class="form-control form-control-lg" name="image" type="file" accept="image/png, image/jpeg, image/jpg" required>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary btn-lg btn-block">Update Profile</button>
                                                         </form>
                                                 </div>
                                           </div>
@@ -64,6 +116,7 @@
        
     <!-- Optional JavaScript -->
     <%include ../partials/javascript%>
+    
 </body>
  
 </html>

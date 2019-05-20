@@ -8,8 +8,8 @@ exports.up = function(knex, Promise) {
         table.string('gender',6);
         table.string('occupation',25);
         table.string('phone',25);
-        table.string('email',25);
-        table.string('address',25);
+        table.string('email',35);
+        table.string('address',200);
         table.string('marital_status',25);
         table.string('pics',100);
         table.integer('unit_id').unsigned();

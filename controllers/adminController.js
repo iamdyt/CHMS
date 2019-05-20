@@ -5,7 +5,10 @@ const path =require('path');
 module.exports = {
         //The Admininistrative DashBoard Page
     index:async (request, response)=>{
-        response.render('admin/index');
+        const members = await knex('members').select('*').orderBy('id','desc').limit(5);
+        const count = await knex('members').count('id as total');
+        response.render('admin/index',{members,count});
+        
     },
         //Get Registration Form
     getSignup:(request,response)=>{
@@ -80,14 +83,14 @@ module.exports = {
             const {image} = request.files;
             images = image;
             images.mv(path.resolve('public/assets/images',images.name));
-            const admin = await knex('admins').where('id', request.params.id)
+            await knex('admins').where('id', request.params.id)
             .update({
                 username:user,
                 email:email,
                 image:`/assets/images/${images.name}`
                 });
        }else{
-            const admin = await knex('admins').where('id', request.params.id)
+            await knex('admins').where('id', request.params.id)
             .update({
                 username:user,
                 email:email,
