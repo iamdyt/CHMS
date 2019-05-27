@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
         <%include ../partials/bootstrap%>
         <link rel="stylesheet" href="/css/toastr.min.css">
+        <link rel="stylesheet" href="/editor/summernote.css">
     <title>Create New Event</title>
 </head>
 
@@ -43,13 +44,13 @@
                                                                 <input class="form-control form-control-lg" required=true name="name" type="text" placeholder="Event's Name" required value="">
                                                             </div>
                                                             <div class="form-group">
-                                                                    <input class="form-control form-control-lg" required=true name="venue" type="text" required placeholder="Event's Description">
+                                                                    <input class="form-control form-control-lg" required=true name="venue" type="text" required placeholder="Event's Venue">
                                                             </div>
 
                                                                 <div class="form-group">
                                                                         <label>Description <small class="text-muted"> &nbsp; Event Description</small>
                                                                         </label>
-                                                                        <textarea name="description" placeholder="Event's Descriptions Goes Here" cols="30" rows="5" class="form-control" required></textarea>
+                                                                        <textarea name="description" id="textEdit" placeholder="Event's Descriptions Goes Here" cols="30" rows="5" class="form-control" required></textarea>
                                                                     </div>
                                                             <button type="submit" class="btn btn-primary btn-lg btn-block">Add Event</button>
                                                         </form>
@@ -66,6 +67,12 @@
     <!-- Optional JavaScript -->
     <%include ../partials/javascript%>
     <script src="/js/toastr.min.js"></script>
+    <script src="/editor/summernote.js"></script>
+    <script>
+        $(()=>{
+            $('#textEdit').summernote();
+        })
+    </script>
     
 </body>
  

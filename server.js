@@ -38,4 +38,4 @@ app.use('*',(request,response,next)=>{
 
 app.use('/', router);
 const PORT = process.env.PORT || 7000;
-app.listen(PORT,()=>{console.log('Server started @ ', PORT);});
+app.listen(PORT,()=>{console.log('Server Started @\nhttp://localhost:'+PORT);});

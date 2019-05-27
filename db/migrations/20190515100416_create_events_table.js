@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').unsigned();
     table.string('name').notNullable();
     table.string('venue').notNullable();
-    table.string('description').notNullable();
+    table.string('description',750).notNullable();
     table.timestamps(['created_at', 'updated_at'], [knex.fn.now()]);
   });
 };
