@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
         <%include ../partials/bootstrap%>
         <link rel="stylesheet" href="/css/toastr.min.css">
-    <title>All Events</title>
+    <title>All Categories</title>
 </head>
 
 <body>
@@ -29,8 +29,8 @@
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                            <li class="breadcrumb-item">Members</li>
-                                            <li class="breadcrumb-item active" aria-current="page">All Events</li>
+                                            <li class="breadcrumb-item">Categories</li>
+                                            <li class="breadcrumb-item active" aria-current="page"> All Categories</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -41,30 +41,25 @@
                     <!-- end pageheader  -->
                     <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">All Events</h5>
+                            <h5 class="card-header">  <i class="fas fa-list"></i> &emsp; All Categories</h5>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead class="bg-light">
                                             <tr class="border-0">
-                                                <th class="border-0">Name</th>
-                                                <th class="border-0">Venue</th>
-                                                <th class="border-0">Description</th>
-                                                <th class="border-0">View</th>
+                                                <th class="border-0">Name</th>                                              
                                                 <th class="border-0">Edit</th>
                                                 <th class="border-0">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <% for (event of events) { %>
+                                                <% for (category of categories) { %>
                                             <tr>
-                                                <td><%=event.name%></td>
-                                                <td><%=event.venue%> </td>
-                                                <td><%-event.description.substr(0,50)+'...'%></td>
+                                                <td><%=category.name%></td>
+                                                
                                                 <!-- EDIT, VIEW AND DELETE -->
-                                                <td><a class='btn-sm btn-info' href="/admin/events/view/<%=event.id%>"><i class="fas fa-eye"></i></a></td>
-                                                <td><a class='btn-sm btn-primary' href="/admin/events/edit/<%=event.id%>"><i class="fas fa-edit"></i></a></td>
-                                                <td><a class='btn-sm btn-danger' href="/admin/events/delete/<%=event.id%>"><i class="fas fa-trash"></i></a></td>
+                                                <td><a class='btn-sm btn-primary' href="/admin/categories/edit/<%=category.id%>"><i class="fas fa-edit"></i></a></td>
+                                                <td><a class='btn-sm btn-danger' href="/admin/categories/delete/<%=category.id%>"><i class="fas fa-trash"></i></a></td>
                                                
                                             </tr>
                                             <%}%>
@@ -77,10 +72,10 @@
                             </div>
                         </div>
                     </div>
+                 </div>
                 </div>
-            </div>    
-        </div>
-        <%include ../partials/footer%>
+            </div>
+            <%include ../partials/footer%>
     </div>
     <!-- Optional JavaScript -->
     <%include ../partials/javascript%>

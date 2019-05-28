@@ -120,18 +120,34 @@
                             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <!-- <div class="float-right">
-                                                <select class="custom-select">
-                                                    <option selected>Today</option>
-                                                    <option value="1">Weekly</option>
-                                                    <option value="2">Monthly</option>
-                                                    <option value="3">Yearly</option>
-                                                </select>
-                                            </div> -->
-                                        <h5 class="mb-0">Recent Events</h5>
+                                        <h5 class="mb-0"><i class="fas fa-calendar"></i>&emsp; Recent Events</h5>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="ct-chart-product ct-golden-section"></div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                        <th class="border-0">Name</th>
+                                                        <th class="border-0">Venue</th>
+                                                        <th class="border-0">Description</th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <% for (event of events) { %>
+                                                    <tr>
+                                                        <td><%=event.name%></td>
+                                                        <td><%=event.venue%> </td>
+                                                        <td><%-event.description.substr(0,50)+'...'%></td>
+                                                        <!-- EDIT, VIEW AND DELETE -->                                                       
+                                                    </tr>
+                                                    <%}%>
+                                                    <tr>
+                                                        <td colspan="9"><a href="" class="btn btn-outline-light float-right">All Events</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -140,23 +156,39 @@
                             <!-- ============================================================== -->
 
 
-                            <!-- Recent Requests -->
+                            <!-- Recent sermons -->
                             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <!-- <div class="float-right">
-                                                <select class="custom-select">
-                                                    <option selected>Today</option>
-                                                    <option value="1">Weekly</option>
-                                                    <option value="2">Monthly</option>
-                                                    <option value="3">Yearly</option>
-                                                </select>
-                                            </div> -->
-                                        <h5 class="mb-0">Recent Requests</h5>
+                                        <h5 class="mb-0"> <i class="fas fa-microphone"></i> &emsp; Recent Sermons</h5>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="ct-chart-product ct-golden-section"></div>
-                                    </div>
+                                    <div class="card-body p-0">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class="bg-light">
+                                                        <tr class="border-0">
+                                                            <th class="border-0">Title</th>
+                                                            <th class="border-0">Content</th>
+                                                            <th class="border-0">Date</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <% for (sermon of sermons) { %>
+                                                        <tr>
+                                                            <td><%=sermon.title%></td>
+                                                            <td><%-sermon.contents.substr(0,50)+'...'%> </td>
+                                                            <td><%=sermon.created_at%></td>
+                                                            <!-- EDIT, VIEW AND DELETE -->                                                       
+                                                        </tr>
+                                                        <%}%>
+                                                        <tr>
+                                                            <td colspan="9"><a href="" class="btn btn-outline-light float-right">All Sermons</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                             <!-- end requests -->
@@ -210,10 +242,10 @@
                                     <div class="card-body">
                                         <h5 class="text-muted">Events</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">13000</h1>
+                                            <h1 class="mb-1"><%=eventCount[0].total%></h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                            <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
+                                            <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-calendar"></i></span><span class="ml-1">Events</span>
                                         </div>
                                     </div>
                                 </div>
@@ -276,21 +308,18 @@
 
                         <!-- end staff -->
                         
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <%include ../partials/footer%>
-            <!-- ============================================================== -->
-            <!-- end footer -->
-            <!-- ============================================================== -->
-        </div>
+            
         <!-- ============================================================== -->
         <!-- end wrapper  -->
         <!-- ============================================================== -->
+       
+          
+            
+        </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- end main wrapper  -->
-    <!-- ============================================================== -->
+    </div>  
+        <%include ../partials/footer%>
+    </div>
     <!-- Optional JavaScript -->
     <%include ../partials/javascript%>
 </body>

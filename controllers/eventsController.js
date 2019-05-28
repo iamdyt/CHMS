@@ -19,7 +19,8 @@ module.exports={
         response.redirect('/admin/events/index');
     },
     show:async(request,response)=>{
-        
+        const events = await knex('events').where('id',request.params.id);
+        response.render('events/single', {event:events[0]});        
     },
     edit:async(request,response)=>{
         const events = await knex('events').where('id',request.params.id);

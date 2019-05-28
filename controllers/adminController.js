@@ -7,7 +7,10 @@ module.exports = {
     index:async (request, response)=>{
         const members = await knex('members').select('*').orderBy('id','desc').limit(5);
         const count = await knex('members').count('id as total');
-        response.render('admin/index',{members,count});
+        const events = await knex('events').orderBy('id','desc').limit(5);
+        const eventCount = await knex('events').count('id as total');
+        const sermons = await knex('sermons').orderBy('id','desc').limit(5);
+        response.render('admin/index',{members,count,events,eventCount,sermons});
         
     },
         //Get Registration Form
