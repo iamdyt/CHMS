@@ -87,12 +87,9 @@
                                                                 <div class="form-group">
                                                                         <label for="input-select">Units</label>
                                                                         <select class="form-control" id="input-select" name="unit">
-                                                                            <option value="1">Choir</option>
-                                                                            <option value="2">Ushering</option>
-                                                                            <option value="3">Welfare</option>
-                                                                            <option value="4">Translating</option>
-                                                                            <option value="5">Technical</option>
-                                                                            <option value="6">Decorating</option>
+                                                                            <% for (unit of units) {%>
+                                                                            <option value="<%=unit.id%>"><%=unit.name%></option>
+                                                                            <%}%>
                                                                         </select>
                                                                     </div>
                                                             

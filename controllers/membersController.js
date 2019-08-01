@@ -4,17 +4,29 @@ const knex = require('knex')(knexoption);
 const slugify = require('slugify');
 module.exports= {
     index:async(request, response)=>{
-       const members = await knex('members').select('*').orderBy('id', 'desc');
+        let members;
+        const count = await knex('members').count('id');
+        if (!request.query.page){
+            members = await knex('members').select('*').limit(2).orderBy('id', 'desc');
+        } else {
+            const {page} = request.query
+            members = await knex('members').select('*').orderBy('id', 'desc').offset(page).limit(10); 
+        }
+      
         response.render('members/index',{
         members,
+        count,
         success:request.flash('success')});
         
     },
 
-    create:(request, response)=>{
+    create: async(request, response)=>{
+
+        const units = await knex('units').select('*');
         response.render('members/create',{
             success:request.flash('success'),
-            error:request.flash('error')
+            error:request.flash('error'),
+            units
         });
 
     },

@@ -32,6 +32,13 @@ module.exports = {
     },
     show: async (request,response)=>{
 
+        const sermons = await knex('sermons')
+        .where('sermons.id', request.params.id)
+        .select('sermons.id','sermons.title','sermons.created_at','sermons.contents','categories.name as catname','categories.id as catid')
+        .join('categories','sermons.category_id','=','categories.id');
+
+        response.render('sermons/single',{sermon:sermons[0]})
+
     },
     edit: async (request,response)=>{
         const sermon = await knex('sermons')

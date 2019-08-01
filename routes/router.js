@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
 const adminMiddlewares = require('../middlewres/adminauth');
-const membersController = require('../controllers/membersContoller');
+const membersController = require('../controllers/membersController');
 const eventsController =require('../controllers/eventsController');
 const categoriesController = require('../controllers/categoriesController');
 const sermonsController = require('../controllers/sermonsController');
+const homeController = require('../controllers/homeController');
+const unitsController = require('../controllers/unitsController')
+
 // Admin and DashBoard Routes
 router.get('/admin/dashboard',adminMiddlewares.notLoggedIn, adminController.index);
 router.get('/admin/signup', adminMiddlewares.isLoggedIn, adminController.getSignup );
@@ -34,8 +37,15 @@ router.get('/admin/events/edit/:id',adminMiddlewares.notLoggedIn,eventsControlle
 router.post('/admin/events/edit/:id',adminMiddlewares.notLoggedIn,eventsController.update);
 router.get('/admin/events/delete/:id',adminMiddlewares.notLoggedIn,eventsController.delete);
 
-// Sermon Categories
+// Units
+router.get('/admin/units/index',adminMiddlewares.notLoggedIn, unitsController.index);
+router.get('/admin/units/create',adminMiddlewares.notLoggedIn, unitsController.create);
+router.post('/admin/units/create',unitsController.store);
+router.get('/admin/units/edit/:id',adminMiddlewares.notLoggedIn, unitsController.edit);
+router.post('/admin/units/edit/:id',adminMiddlewares.notLoggedIn,unitsController.update);
+router.get('/admin/units/delete/:id',adminMiddlewares.notLoggedIn,unitsController.destroy);
 
+// Sermon Categories
 router.get('/admin/categories/index',adminMiddlewares.notLoggedIn, categoriesController.index);
 router.get('/admin/categories/create',adminMiddlewares.notLoggedIn, categoriesController.create);
 router.post('/admin/categories/create',categoriesController.store);
@@ -52,6 +62,14 @@ router.get('/admin/sermons/view/:id',adminMiddlewares.notLoggedIn,sermonsControl
 router.get('/admin/sermons/edit/:id',adminMiddlewares.notLoggedIn,sermonsController.edit);
 router.post('/admin/sermons/edit/:id',adminMiddlewares.notLoggedIn,sermonsController.update);
 router.get('/admin/sermons/delete/:id',adminMiddlewares.notLoggedIn,sermonsController.destroy);
+
+//Church/main Home routes
+router.get('/', homeController.index);
+router.get('/sermons', homeController.sermons);
+router.get('/sermons/single', homeController.single);
+router.get('/about', homeController.about);
+router.get('/contact', homeController.contact);
+router.get('/events', homeController.events);
 
 
 
