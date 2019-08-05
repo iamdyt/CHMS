@@ -9,8 +9,12 @@ module.exports = {
         const count = await knex('members').count('id as total');
         const events = await knex('events').orderBy('id','desc').limit(5);
         const eventCount = await knex('events').count('id as total');
-        const sermons = await knex('sermons').orderBy('id','desc').limit(5);
-        response.render('admin/index',{members,count,events,eventCount,sermons});
+        const sermons = await knex('sermons')
+        .join('categories','categories.id','=','sermons.category_id')
+        .select('sermons.title as title','sermons.contents as contents','categories.name as category')
+        .orderBy('sermons.id','desc').limit(5);
+        const sermonsCount = await knex('sermons').count('id as count')
+        response.render('admin/index',{members,count,events,eventCount,sermons,sermonsCount:sermonsCount[0].count});
         
     },
         //Get Registration Form

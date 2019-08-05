@@ -2,11 +2,26 @@ const knexoption = require('../knexfile');
 const knex = require('knex')(knexoption);
 module.exports = {
     index: async (request, response)=>{
-        const units = await knex('units')
-        .join('members','members.id','=','units.head')
-        .select('units.id as id','units.name as uname','units.description as desc','members.last_name as head');
+
+        let units;
+        let pageno = 1;
+        let offset = 0;
+        let limit = 10;
+        const count = await knex('units').count('id as count');
+        let totalpages = Math.ceil ((count[0].count)/limit);
+        if (!request.query.page){
+            units = await knex('units').join('members','members.id','=','units.head')
+            .select('units.id as id','units.name as uname','units.description as desc','members.last_name as head').offset(offset).limit(limit);
+        }
+        else{
+            const {page} = request.query;
+            const newoffset = (page-1) * 10;
+            pageno = parseInt(page);
+            units = await knex('units').join('members','members.id','=','units.head')
+            .select('units.id as id','units.name as uname','units.description as desc','members.last_name as head').offset(newoffset).limit(limit);
+        }
         response.render('units/index',{
-            units,
+            units,pageno,totalpages,
             success:request.flash('success')
         });
     },

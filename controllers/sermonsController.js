@@ -2,11 +2,31 @@ const knexoption = require('../knexfile');
 const knex = require('knex')(knexoption);
 module.exports = {
     index: async (request,response)=>{
-        const sermons = await knex('sermons')
-        .select('sermons.id','sermons.title','sermons.contents','categories.name')
-        .join('categories','sermons.category_id','=','categories.id').orderBy('sermons.id','desc');
+
+        let sermons;
+        let pageno = 1;
+        let offset = 0;
+        let limit = 10;
+        const count = await knex('sermons').count('id as count');
+        let totalpages = Math.ceil ((count[0].count)/limit);
+        if (!request.query.page){
+            sermons = await knex('sermons')
+            .join('categories','sermons.category_id','=','categories.id')
+            .select('sermons.id','sermons.title','sermons.contents','categories.name')
+            .offset(offset).limit(limit).orderBy('sermons.id','desc').orderBy('sermons.id','desc');
+        }
+        else{
+            const {page} = request.query;
+            const newoffset = (page-1) * 10;
+            pageno = parseInt(page);
+            sermons = await knex('sermons')
+            .join('categories','sermons.category_id','=','categories.id').orderBy('sermons.id','desc')
+            .select('sermons.id','sermons.title','sermons.contents','categories.name')
+            .offset(newoffset).limit(limit);
+        }
+        
         response.render('sermons/index',{
-            sermons,
+            sermons,pageno,totalpages,
             success: request.flash('success')
         });
        

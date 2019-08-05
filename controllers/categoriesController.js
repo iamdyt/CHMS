@@ -2,9 +2,25 @@ const knexoption = require('../knexfile');
 const knex = require('knex')(knexoption);
 module.exports = {
     index: async (request, response)=>{
-        const categories = await knex('categories').select('*');
+
+        let categories;
+        let pageno = 1;
+        let offset = 0;
+        let limit = 10;
+        const count = await knex('categories').count('id as count');
+        let totalpages = Math.ceil ((count[0].count)/limit);
+        if (!request.query.page){
+            categories = await knex('categories').select('*').offset(offset).limit(limit);
+        }
+        else{
+            const {page} = request.query;
+            const newoffset = (page-1) * 10;
+            pageno = parseInt(page);
+            categories = await knex('categories').select('*').offset(newoffset).limit(limit);
+        }
+
         response.render('categories/index',{
-            categories,
+            categories,pageno,totalpages,
             success:request.flash('success')
         });
     },

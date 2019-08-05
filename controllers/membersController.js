@@ -5,17 +5,25 @@ const slugify = require('slugify');
 module.exports= {
     index:async(request, response)=>{
         let members;
-        const count = await knex('members').count('id');
+        let pageno =1;
+        const offset =0;
+        const limit = 3;
+        const count = await knex('members').count('id as count');
+        let totalpages = Math.ceil((count[0].count/limit));
+        
         if (!request.query.page){
-            members = await knex('members').select('*').limit(2).orderBy('id', 'desc');
+            members = await knex('members').select('*').offset(offset).limit(limit).orderBy('id', 'desc');
         } else {
             const {page} = request.query
-            members = await knex('members').select('*').orderBy('id', 'desc').offset(page).limit(10); 
+            const offsett = (page-1)*limit
+            pageno = parseInt(page)
+            members = await knex('members').select('*').orderBy('id', 'desc').offset(offsett).limit(limit); 
         }
       
         response.render('members/index',{
         members,
-        count,
+        pageno,
+        totalpages,
         success:request.flash('success')});
         
     },
