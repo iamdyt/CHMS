@@ -65,11 +65,10 @@ router.get('/admin/sermons/delete/:id',adminMiddlewares.notLoggedIn,sermonsContr
 
 //Church/main Home routes
 router.get('/', homeController.index);
-router.get('/sermons', homeController.sermons);
-router.get('/sermons/single', homeController.single);
-router.get('/about', homeController.about);
-router.get('/contact', homeController.contact);
-router.get('/events', homeController.events);
+router.get('/prayer', homeController.prayer);
+router.post('/prayer', homeController.prayerPost);
+router.get('/admin/prayer', homeController.adminPrayer);
+
 
 
 

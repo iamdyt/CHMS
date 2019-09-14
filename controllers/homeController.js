@@ -2,26 +2,26 @@ const knexoption = require('../knexfile');
 const knex = require('knex')(knexoption);
 module.exports = {
     index:async (req,res)=>{
-        const LatestSermon = await knex('sermons').join('categories','sermons.category_id','categories.id').orderBy('sermons.id','desc').first();
-        
-        res.render('home/index', {LatestSermon});
+        res.render('home/index');
     },
 
-    sermons:async(req,res)=>{
-        const sermons = await knex('sermons').select('*');
-        //res.send(sermons);
-        res.render('home/sermons',{sermons});
+
+    prayer:async(req,res)=>{
+        res.render('home/prayer');
     },
-    single: async(req,res)=>{
-        res.render('home/sermons');
-    },
-    about:async(req,res)=>{
-        res.render('home/about');
-    },
-    contact:async(req,res)=>{
-        res.render('home/contact');
-    },
-    events:async(req,res)=>{
-        res.render('home/events');
+
+    prayerPost:async(req,res)=>{
+        const {name, request} = req.body;
+        const inserted = await knex('prayers').insert({
+            name,request
+        })
+        res.redirect('/');
+    },    
+    
+    adminPrayer: async (req,res)=>{
+       const prayers = await knex('prayers').select('*')
+        res.render('home/adminprayer', {
+            prayers
+        });
     }
 };
