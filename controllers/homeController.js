@@ -1,4 +1,4 @@
-const knexoption = require('../knexfilelocal');
+const knexoption = require('../knexfile');
 const knex = require('knex')(knexoption);
 module.exports = {
     index:async (req,res)=>{

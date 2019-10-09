@@ -1,4 +1,4 @@
-const knexoption = require('../knexfilelocal');
+const knexoption = require('../knexfile');
 const path = require('path');
 const knex = require('knex')(knexoption);
 const slugify = require('slugify');

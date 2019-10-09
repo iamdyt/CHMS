@@ -1,4 +1,4 @@
-const knexoption = require('../knexfilelocal');
+const knexoption = require('../knexfile');
 const knex = require('knex')(knexoption);
 const crypt = require('apache-crypt');
 const path =require('path');
