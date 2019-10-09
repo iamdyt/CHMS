@@ -7,7 +7,9 @@ const eventsController =require('../controllers/eventsController');
 const categoriesController = require('../controllers/categoriesController');
 const sermonsController = require('../controllers/sermonsController');
 const homeController = require('../controllers/homeController');
-const unitsController = require('../controllers/unitsController')
+const unitsController = require('../controllers/unitsController');
+const sermonsControllerHome = require('../controllers/sermonsControllerHome');
+const eventsControllerHome = require('../controllers/eventsControllerHome');
 
 // Admin and DashBoard Routes
 router.get('/admin/dashboard',adminMiddlewares.notLoggedIn, adminController.index);
@@ -68,10 +70,9 @@ router.get('/', homeController.index);
 router.get('/prayer', homeController.prayer);
 router.post('/prayer', homeController.prayerPost);
 router.get('/admin/prayer', homeController.adminPrayer);
-
-
-
-
+router.get('/sermons', sermonsControllerHome.index );
+router.get('/sermons/show/:id',sermonsControllerHome.show);
+router.get('/events',eventsControllerHome.index);
 
 
 module.exports = router;
