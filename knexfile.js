@@ -15,5 +15,5 @@ options = {
         directory:__dirname+'/db/seeds'
     }
 };
-mysql://b772dbfa48648d:4ba4a8b5@us-cdbr-iron-east-05.cleardb.net/heroku_4229e7d82e5f8cc?reconnect=true
+mysql://b772dbfa48648d:4ba4a8b5@us-cdbr-iron-east-05.cleardb.net/heroku_4229e7d82e5f8cc?reconnect=trueh
 module.exports = options;
